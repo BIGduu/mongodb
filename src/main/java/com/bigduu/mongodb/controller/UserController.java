@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Transactional
-    public Object getUserById(@PathVariable BigInteger id) {
+    public Object getUserById(@PathVariable Long id) {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
             return userOptional.get();
@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping
     @Transactional
     public Object addUser(User user) {
-        if (user.getId() == null) {
+        if (user.getId() != null) {
             return repository.save(user);
         } else {
             return "为传入正确参数";
@@ -67,6 +67,12 @@ public class UserController {
     @Transactional
     public void deleteUser(User user){
         repository.delete(user);
+    }
+
+    @DeleteMapping("/all")
+    @Transactional
+    public void deleteUserAll(){
+        repository.deleteAll();
     }
 
     private Boolean hasUser(User user) {

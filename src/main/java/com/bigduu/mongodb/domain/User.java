@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Data
 @Builder
@@ -18,11 +19,13 @@ import java.math.BigInteger;
 @Document
 public class User {
     @Id
-    private BigInteger id;
+    private Long id;
 
     private String firstName;
     private String lastName;
 
     @Version
     private Integer version;
+
+    private List<User> parentUserList;
 }
